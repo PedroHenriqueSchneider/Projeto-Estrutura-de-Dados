@@ -7,13 +7,16 @@
 
 void insereInicio(struct fila** head, int val)
 {
+    /*Recebe um valor e um ponteiro para Head
+    aloca espaço e insere
+    */
     struct fila* new_fila = (struct fila*)malloc(sizeof(struct fila));
  
     new_fila->valor = val;
- 
+    
     new_fila->next = (*head);
     new_fila->before = NULL;
- 
+    
     if ((*head) != NULL)
         (*head)->before = new_fila;
 
@@ -22,6 +25,10 @@ void insereInicio(struct fila** head, int val)
 
 void insereFim(struct fila** head, int val) 
 {
+    /* Recebe um valor e ponteiro pra Head
+       itera até o fim do deque
+       aloca espaço e insere o valor 
+    */
     struct fila* new_fila = (struct fila*)malloc(sizeof(struct fila));
  
     struct fila* last = *head;
@@ -46,6 +53,7 @@ void insereFim(struct fila** head, int val)
 }
 int tamanhofila(struct fila* fila)
 {
+    //itera sobre os valores do deque e retorna seu tamanho
     int tam = 0;
     while(fila != NULL)
     {
@@ -59,17 +67,14 @@ int tamanhofila(struct fila* fila)
 void deleteLast(struct fila** head, struct fila* last)
 {
     /* Pega o ponteiro na Head
-    itera ate o fim e desaloca o espaço
-    
+    itera ate o fim e desaloca o espaço utilizado
     */
     while (last->next != NULL) {
         last = last->next;
     }
     if (*head == last)
         *head = last->next;
-
     // printf("%d\n", last->valor);
-
     if(last->before != NULL){
         last->before->next = NULL;
     }
