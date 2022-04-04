@@ -12,24 +12,24 @@ void inicializar(listaEncadeada *p)
 }
 
 // destroi a lista e o sentinela
-void fechar(listaEncadeada *p)
+void destroyL(listaEncadeada *p)
 {
-    while (!vazia(p))
+    while (!vaziaL(p))
     {
-        removeIni(p);
+        removeI(p);
     }
     free(p->sentinela);
 }
 
-int vazia(listaEncadeada *p)
+int vaziaL(listaEncadeada *p)
 {
     return p->sentinela->prox == p->sentinela;
 }
 
-void inserirInit(listaEncadeada *p, char data[], int ra)
+int insereI(listaEncadeada *p, int ra)
 {
     node *n = (node *)malloc(sizeof(node)); // aloca memória
-    strcpy(n->data, data);                  // coloca dentro do elemento da struct ponteiro o elemento de quando chama a funcao
+                                            // coloca dentro do elemento da struct ponteiro o elemento de quando chama a funcao
 
     n->ra = ra;
 
@@ -38,12 +38,13 @@ void inserirInit(listaEncadeada *p, char data[], int ra)
     p->sentinela->prox = n;       // colocando dentro do sentinela que aponta para o proximo o struct n
     n->prox->anterior = n;
     p->quantidadeElements++; // aumenta dentro do struct o número de elementos
+
+    return n->ra;
 }
 
-void inserirFim(listaEncadeada *p, char data[], int ra)
+int insereF(listaEncadeada *p, int ra)
 {
     node *n = (node *)malloc(sizeof(node));
-    strcpy(n->data, data);
 
     n->ra = ra;
 
@@ -52,9 +53,11 @@ void inserirFim(listaEncadeada *p, char data[], int ra)
     p->sentinela->anterior = n;
     n->anterior->prox = n;
     p->quantidadeElements++;
+
+    return n->ra;
 }
 
-int removeFim(listaEncadeada *p)
+int removeF(listaEncadeada *p)
 {
     node *n = p->sentinela->anterior;
     if (n != p->sentinela)
@@ -69,7 +72,7 @@ int removeFim(listaEncadeada *p)
     return -1;
 }
 
-int removeIni(listaEncadeada *p)
+int removeI(listaEncadeada *p)
 {
     node *n = p->sentinela->prox;
     if (n != p->sentinela)
@@ -84,42 +87,47 @@ int removeIni(listaEncadeada *p)
     return -1;
 }
 
-iterador begin(listaEncadeada *p)
-{
-    iterador i;
-    i.posicao = p->sentinela->prox;
-    i.estrutura = p;
-    return i;
-}
-iterador end(listaEncadeada *p)
-{
-    iterador i;
-    i.posicao = p->sentinela->anterior;
-    i.estrutura = p;
-    return i;
-}
-int acabou(iterador i)
-{
-    return i.posicao == i.estrutura->sentinela;
-}
+// iterador begin(listaEncadeada *p)
+// {
+//     iterador i;
+//     i.posicao = p->sentinela->prox;
+//     i.estrutura = p;
+//     return i;
+// }
+// iterador end(listaEncadeada *p)
+// {
+//     iterador i;
+//     i.posicao = p->sentinela->anterior;
+//     i.estrutura = p;
+//     return i;
+// }
 
-int proximo( iterador* i)
-{
-    if(!acabou(i))
-    {
-        i->posicao = i->posicao->prox;
-        return 1;
-    }
-    return 0;
-}
+// char elemento(iterador i)
+// {
+//     return i.posicao->data;
+// }
 
-void alunosCadastrados(listaEncadeada *p)
-{
-    node *n = p->sentinela->prox;
-    while (n != p->sentinela)
-    {
-        printf("Aluno: %s\nRA:    %d\n\n", n->data, n->ra);
-        n = n->prox;
-    }
-    return;
-}
+// int acabou(iterador i)
+// {
+//     return i.posicao == i.estrutura->sentinela;
+// }
+
+// int proximo( iterador* i)
+// {
+//     if(!acabou(i))
+//     {
+//         i->posicao = i->posicao->prox;
+//         return 1;
+//     }
+//     return 0;
+// }
+
+// void alunosCadastrados(listaEncadeada *p)
+// {
+//     node *n = p->sentinela->prox;
+//     while (n != p->sentinela)
+//     {
+//         n = n->prox;
+//     }
+//     return;
+// }
