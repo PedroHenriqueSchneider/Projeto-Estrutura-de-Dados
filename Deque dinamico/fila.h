@@ -13,10 +13,10 @@ typedef struct
     int qnt_total;
 } Fila;
 
-void initialize(Fila *f, int n);                     // INICIA A FILA;
-void destroyF(Fila *f);                               // RETIRA TODOS OS ELEMENTOS
-int vaziaF(Fila *f);                                  // VERIFICA SE A FILA ESTA VAZIA
-int insere(Fila *f, int ra);                       // INSERE NA FILA
-int retira(Fila *f);   
-int cheia(Fila *f);                              // REMOVE O ELEMENTO DA FILA
+void initialize(Fila *f, int n); // INICIA A FILA;
+void destroyF(Fila *f);          // RETIRA TODOS OS ELEMENTOS
+int vaziaF(Fila *f);             // VERIFICA SE A FILA ESTA VAZIA
+int insere(Fila *f, int ra);     // INSERE NA FILA
+int retira(Fila *f);
+int cheia(Fila *f); // REMOVE O ELEMENTO DA FILA
 #endif
