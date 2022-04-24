@@ -29,10 +29,13 @@ int insereF(listaEncadeada *p, int ra);
 int removeI(listaEncadeada *p);
 int removeF(listaEncadeada *p);
 void alunosCadastrados(listaEncadeada *p);
-// iterador begin(listaEncadeada *p);
-// iterador end(listaEncadeada *p);
-// iterador procuraP(listaEncadeada *p, int ra);
-// iterador procuraD(iterador i, int ra);
-// iterador procuraPosition(listaEncadeada *p, unsigned position);
+iterador begin(listaEncadeada *p);
+iterador end(listaEncadeada *p);
+iterador proximo( iterador i);
+int acabou(iterador i);
+int elemento(iterador i);
+void insereAntes(listaEncadeada *p, iterador it, int ra);
+void insereDepois(listaEncadeada *p, iterador it, int ra);
+int removePosicao(listaEncadeada *p, iterador it);
 
 #endif
