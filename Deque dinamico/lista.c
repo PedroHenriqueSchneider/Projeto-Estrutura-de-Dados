@@ -9,6 +9,7 @@ void inicializar(listaEncadeada *p)
     node *n = (node *)malloc(sizeof(node));
     n->prox = n->anterior = p->sentinela = n;
     p->quantidadeElements = 0;
+    p->sentinela->ra = 0;
 }
 
 // destroi a lista e o sentinela
@@ -83,48 +84,96 @@ int removeI(listaEncadeada *p)
     return -1;
 }
 
-// Para a segunda parte do projeto
-// iterador begin(listaEncadeada *p)
-// {
-//     iterador i;
-//     i.posicao = p->sentinela->prox;
-//     i.estrutura = p;
-//     return i;
-// }
-// iterador end(listaEncadeada *p)
-// {
-//     iterador i;
-//     i.posicao = p->sentinela->anterior;
-//     i.estrutura = p;
-//     return i;
-// }
+//Para a segunda parte do projeto
+iterador begin(listaEncadeada *p)
+{
+    iterador i;
+    i.posicao = p->sentinela->prox;
+    i.estrutura = p;
+    return i;
+}
+iterador end(listaEncadeada *p)
+{
+    iterador i;
+    i.posicao = p->sentinela->anterior;
+    i.estrutura = p;
+    return i;
+}
 
-// char elemento(iterador i)
-// {
-//     return i.posicao->data;
-// }
+int elemento(iterador i)
+{
+    return i.posicao->ra;
+}
 
-// int acabou(iterador i)
-// {
-//     return i.posicao == i.estrutura->sentinela;
-// }
+int acabou(iterador i)
+{
+    return i.posicao == i.estrutura->sentinela;
+}
 
-// int proximo( iterador* i)
-// {
-//     if(!acabou(i))
-//     {
-//         i->posicao = i->posicao->prox;
-//         return 1;
-//     }
-//     return 0;
-// }
+iterador proximo( iterador i)
+{
+    if(i.posicao != i.estrutura->sentinela)
+        i.posicao = i.posicao->prox;
 
-// void alunosCadastrados(listaEncadeada *p)
-// {
-//     node *n = p->sentinela->prox;
-//     while (n != p->sentinela)
-//     {
-//         n = n->prox;
-//     }
-//     return;
-// }
+    return i;
+}
+
+iterador anterior(iterador i)
+{
+    if(i.posicao != i.estrutura->sentinela)
+        i.posicao = i.posicao->anterior;
+    
+    return i;
+}
+
+void insereAntes(listaEncadeada *p, iterador it, int ra)
+{  
+    node *n = malloc(sizeof(node));
+    listaEncadeada *l = p;
+
+    n->ra = ra;
+    n->prox = it.posicao;
+    n->anterior = it.posicao->anterior;
+    n->anterior->prox = n;
+    n->prox->anterior = n;
+    p->quantidadeElements++;
+}
+
+
+void insereDepois(listaEncadeada *p, iterador it, int ra)
+{  
+    node *n = malloc(sizeof(node));
+
+    n->ra = ra;
+    n->anterior = it.posicao;
+    n->prox = it.posicao->prox;
+    n->anterior->prox = n;
+    n->prox->anterior = n;
+
+    p->quantidadeElements++;
+
+}
+
+int removePosicao(listaEncadeada *p, iterador it)
+{
+    node *n = it.posicao;
+    if (p->sentinela != it.posicao)
+    {
+        n->anterior->prox = n->prox;
+        n->prox->anterior = n->anterior;
+        int i = n->ra;
+        proximo(it);
+        free(n);
+        return i;
+    }
+    return 0; 
+}
+void alunosCadastrados(listaEncadeada *p)
+{
+    node *n = p->sentinela->prox;
+    while (n != p->sentinela)
+    {
+        n = n->prox;
+    }
+    return;
+}
